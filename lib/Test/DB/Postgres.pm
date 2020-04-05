@@ -32,7 +32,7 @@ has 'dbh' => (
 fun new_dbh($self) {
   DBI->connect($self->dsn, $self->username, $self->password, {
     RaiseError => 1,
-    AutoCommit => 0
+    AutoCommit => 1
   })
 }
 

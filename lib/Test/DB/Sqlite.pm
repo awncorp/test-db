@@ -32,7 +32,7 @@ has 'dbh' => (
 );
 
 fun new_dbh($self) {
-  DBI->connect($self->dsn, '', '', { RaiseError => 1, AutoCommit => 0 })
+  DBI->connect($self->dsn, '', '', { RaiseError => 1, AutoCommit => 1 })
 }
 
 has 'dsn' => (
