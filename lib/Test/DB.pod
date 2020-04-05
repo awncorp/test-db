@@ -1,0 +1,99 @@
+
+=encoding utf8
+
+=head1 NAME
+
+Test::DB
+
+=cut
+
+=head1 ABSTRACT
+
+Temporary Databases for Testing
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Test::DB;
+
+  my $tdb = Test::DB->new;
+
+=cut
+
+=head1 DESCRIPTION
+
+This package provides a framework for setting up and tearing down temporary
+databases for testing purposes. This framework requires a user (optionally with
+password) which has the ability to create new databases and works by creating
+test-specific databases owned by the user specified using the naming convention
+of C<test_db_${time}_${proc}_{rand}>.
+
+=cut
+
+=head1 LIBRARIES
+
+This package uses type constraints from:
+
+L<Types::Standard>
+
+=cut
+
+=head1 METHODS
+
+This package implements the following methods:
+
+=cut
+
+=head2 create
+
+  create(Str :$database, Str %options) : Maybe[InstanceOf["Test::DB::Object"]]
+
+The create method generates a database based on the type specified and returns
+a C<Test::DB::Object> with an active connection, C<dbh> and C<dsn>. If the
+database specified doesn't have a corresponding database drive this method will
+returned the undefined value. The type of database can be omitted if the
+C<TESTDB_DATABASE> environment variable is set, if not the type of database
+must be either C<sqlite>, C<mysql>, or C<postgres>.
+
+=over 4
+
+=item create example #1
+
+  # given: synopsis
+
+  $tdb->create
+
+=back
+
+=cut
+
+=head1 AUTHOR
+
+Al Newkirk, C<awncorp@cpan.org>
+
+=head1 LICENSE
+
+Copyright (C) 2011-2019, Al Newkirk, et al.
+
+This is free software; you can redistribute it and/or modify it under the terms
+of the The Apache License, Version 2.0, as elucidated in the L<"license
+file"|https://github.com/iamalnewkirk/test-db/blob/master/LICENSE>.
+
+=head1 PROJECT
+
+L<Wiki|https://github.com/iamalnewkirk/test-db/wiki>
+
+L<Project|https://github.com/iamalnewkirk/test-db>
+
+L<Initiatives|https://github.com/iamalnewkirk/test-db/projects>
+
+L<Milestones|https://github.com/iamalnewkirk/test-db/milestones>
+
+L<Contributing|https://github.com/iamalnewkirk/test-db/blob/master/CONTRIBUTE.md>
+
+L<Issues|https://github.com/iamalnewkirk/test-db/issues>
+
+=cut
