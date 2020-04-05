@@ -71,10 +71,9 @@ password: ro, opt, Str
 =description
 
 This package provides methods for generating and destroying Postgres databases
-for testing purposes. The database, username and password attributes can be set
-using the respective environment variables: C<TESTDB_DATABASE>,
-C<TESTDB_USERNAME>, C<TESTDB_PASSWORD>, C<TESTDB_HOSTNAME>, and
-C<TESTDB_HOSTPORT>.
+for testing purposes. The attributes can be set using their respective
+environment variables: C<TESTDB_DATABASE>, C<TESTDB_USERNAME>,
+C<TESTDB_PASSWORD>, C<TESTDB_HOSTNAME>, and C<TESTDB_HOSTPORT>.
 
 =cut
 
@@ -90,7 +89,9 @@ create() : Object
 
   # given: synopsis
 
-  $tdbi->create
+  $tdbi->create;
+
+  # <Test::DB::Postgres>
 
 =cut
 
@@ -107,7 +108,9 @@ destroy() : Object
   # given: synopsis
 
   $tdbi->create;
-  $tdbi->destroy
+  $tdbi->destroy;
+
+  # <Test::DB::Postgres>
 
 =cut
 

@@ -114,7 +114,9 @@ The create method creates a temporary database and returns the invocant.
 
   # given: synopsis
 
-  $tdbi->create
+  $tdbi->create;
+
+  # <Test::DB::Sqlite>
 
 =back
 
@@ -133,7 +135,9 @@ The destroy method destroys (drops) the database and returns the invocant.
   # given: synopsis
 
   $tdbi->create;
-  $tdbi->destroy
+  $tdbi->destroy;
+
+  # <Test::DB::Sqlite>
 
 =back
 

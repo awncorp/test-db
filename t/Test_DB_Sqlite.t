@@ -84,7 +84,9 @@ create() : Object
 
   # given: synopsis
 
-  $tdbi->create
+  $tdbi->create;
+
+  # <Test::DB::Sqlite>
 
 =cut
 
@@ -101,7 +103,9 @@ destroy() : Object
   # given: synopsis
 
   $tdbi->create;
-  $tdbi->destroy
+  $tdbi->destroy;
+
+  # <Test::DB::Sqlite>
 
 =cut
 
