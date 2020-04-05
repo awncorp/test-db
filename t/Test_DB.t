@@ -46,8 +46,8 @@ Types::Standard
 This package provides a framework for setting up and tearing down temporary
 databases for testing purposes. This framework requires a user (optionally with
 password) which has the ability to create new databases and works by creating
-test-specific databases owned by the user specified using the naming convention
-of C<test_db_${time}_${proc}_{rand}>.
+test-specific databases owned by the user specified using the naming
+convention: C<test_db_{time}_{proc}_{rand}>.
 
 =cut
 
@@ -58,7 +58,8 @@ a C<Test::DB::Object> with an active connection, C<dbh> and C<dsn>. If the
 database specified doesn't have a corresponding database drive this method will
 returned the undefined value. The type of database can be omitted if the
 C<TESTDB_DATABASE> environment variable is set, if not the type of database
-must be either C<sqlite>, C<mysql>, or C<postgres>.
+must be either C<sqlite>, C<mysql>, or C<postgres>. Any options provided are
+passed along to the test database object class constructor.
 
 =signature create
 
@@ -68,7 +69,9 @@ create(Str :$database, Str %options) : Maybe[InstanceOf["Test::DB::Object"]]
 
   # given: synopsis
 
-  $tdb->create
+  $tdb->create; # or $tdb->create(%options)
+
+  # <Test::DB::Object>
 
 =cut
 
