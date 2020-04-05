@@ -26,10 +26,9 @@ Temporary Postgres Database for Testing
 =head1 DESCRIPTION
 
 This package provides methods for generating and destroying Postgres databases
-for testing purposes. The database, username and password attributes can be set
-using the respective environment variables: C<TESTDB_DATABASE>,
-C<TESTDB_USERNAME>, C<TESTDB_PASSWORD>, C<TESTDB_HOSTNAME>, and
-C<TESTDB_HOSTPORT>.
+for testing purposes. The attributes can be set using their respective
+environment variables: C<TESTDB_DATABASE>, C<TESTDB_USERNAME>,
+C<TESTDB_PASSWORD>, C<TESTDB_HOSTNAME>, and C<TESTDB_HOSTPORT>.
 
 =cut
 
@@ -141,7 +140,9 @@ The create method creates a temporary database and returns the invocant.
 
   # given: synopsis
 
-  $tdbi->create
+  $tdbi->create;
+
+  # <Test::DB::Postgres>
 
 =back
 
@@ -160,7 +161,9 @@ The destroy method destroys (drops) the database and returns the invocant.
   # given: synopsis
 
   $tdbi->create;
-  $tdbi->destroy
+  $tdbi->destroy;
+
+  # <Test::DB::Postgres>
 
 =back
 
