@@ -32,7 +32,7 @@ has 'dbh' => (
 fun new_dbh($self) {
   DBI->connect($self->dsn, $self->username, $self->password, {
     RaiseError => 1,
-    AutoCommit => 0
+    AutoCommit => 1
   })
 }
 
@@ -77,6 +77,29 @@ has 'password' => (
 );
 
 # METHODS
+
+method clone(Str $source) {
+  my $initial = $self->initial;
+
+  my $dbh = DBI->connect($self->dsngen($initial),
+    $self->username,
+    $self->password,
+    {
+      RaiseError => 1,
+      AutoCommit => 1
+    }
+  );
+
+  my $sth = $dbh->prepare(qq(CREATE DATABASE "@{[$self->database]}" TEMPLATE "$source"));
+
+  $sth->execute;
+  $dbh->disconnect;
+
+  $self->dbh;
+  $self->immutable;
+
+  return $self;
+}
 
 method create() {
   my $initial = $self->initial;

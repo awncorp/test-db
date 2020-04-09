@@ -18,6 +18,7 @@ with 'Data::Object::Role::Immutable';
 with 'Data::Object::Role::Stashable';
 
 use DBI;
+use File::Copy ();
 use File::Spec ();
 use File::Temp ();
 
@@ -32,7 +33,7 @@ has 'dbh' => (
 );
 
 fun new_dbh($self) {
-  DBI->connect($self->dsn, '', '', { RaiseError => 1, AutoCommit => 0 })
+  DBI->connect($self->dsn, '', '', { RaiseError => 1, AutoCommit => 1 })
 }
 
 has 'dsn' => (
@@ -56,6 +57,12 @@ fun new_file($self) {
 }
 
 # METHODS
+
+method clone(Str $source) {
+  File::Copy::copy($source, $self->file);
+
+  return $self->create;
+}
 
 method create() {
   my $dbh = $self->dbh;

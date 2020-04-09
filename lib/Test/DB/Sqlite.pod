@@ -102,6 +102,26 @@ This package implements the following methods:
 
 =cut
 
+=head2 clone
+
+  clone(Str $source) : Object
+
+The clone method creates a temporary database from a database template.
+
+=over 4
+
+=item clone example #1
+
+  # given: synopsis
+
+  $tdbi->clone('source.db');
+
+  # <Test::DB::Sqlite>
+
+=back
+
+=cut
+
 =head2 create
 
   create() : Object
