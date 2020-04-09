@@ -21,6 +21,7 @@ Temporary Sqlite Database for Testing
 
 =includes
 
+method: clone
 method: create
 method: destroy
 
@@ -69,6 +70,24 @@ file: ro, opt, Str
 
 This package provides methods for generating and destroying Sqlite databases
 for testing purposes.
+
+=cut
+
+=method clone
+
+The clone method creates a temporary database from a database template.
+
+=signature clone
+
+clone(Str $source) : Object
+
+=example-1 clone
+
+  # given: synopsis
+
+  $tdbi->clone('source.db');
+
+  # <Test::DB::Sqlite>
 
 =cut
 
@@ -123,6 +142,16 @@ SKIP: {
   $subs->synopsis(fun($tryable) {
     ok my $result = $tryable->result;
 
+    $result
+  });
+
+  $subs->example(-1, 'clone', 'method', fun($tryable) {
+    ok my $result = $tryable->result;
+    ok $result->isa('Test::DB::Sqlite');
+    ok $result->dbh;
+    like $result->dsn, qr/dbi:SQLite:dbname=.*test_db_\d+_\d+_\d+/;
+
+    $result->destroy;
     $result
   });
 

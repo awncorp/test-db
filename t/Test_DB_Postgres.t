@@ -21,6 +21,7 @@ Temporary Postgres Database for Testing
 
 =includes
 
+method: clone
 method: create
 method: destroy
 
@@ -77,6 +78,24 @@ C<TESTDB_PASSWORD>, C<TESTDB_HOSTNAME>, and C<TESTDB_HOSTPORT>.
 
 =cut
 
+=method clone
+
+The clone method creates a temporary database from a database template.
+
+=signature clone
+
+clone(Str $source) : Object
+
+=example-1 clone
+
+  # given: synopsis
+
+  $tdbi->clone('template0');
+
+  # <Test::DB::Postgres>
+
+=cut
+
 =method create
 
 The create method creates a temporary database and returns the invocant.
@@ -128,6 +147,16 @@ SKIP: {
   $subs->synopsis(fun($tryable) {
     ok my $result = $tryable->result;
 
+    $result
+  });
+
+  $subs->example(-1, 'clone', 'method', fun($tryable) {
+    ok my $result = $tryable->result;
+    ok $result->isa('Test::DB::Postgres');
+    ok $result->dbh;
+    like $result->dsn, qr/dbi:Pg:dbname=test_db_\d+_\d+_\d+/;
+
+    $result->destroy;
     $result
   });
 
