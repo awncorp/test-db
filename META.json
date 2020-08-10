@@ -4,7 +4,7 @@
       "Al Newkirk <awncorp@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 6.012, CPAN::Meta::Converter version 2.150010",
+   "generated_by" : "Dist::Zilla version 6.015, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "perl_5"
    ],
@@ -41,7 +41,7 @@
             "Data::Object::Role::Buildable" : "0.03",
             "Data::Object::Role::Immutable" : "2.01",
             "Data::Object::Role::Stashable" : "2.01",
-            "Test::Auto" : "0.10",
+            "Test::Auto" : "0.12",
             "perl" : "5.014",
             "routines" : "0",
             "strict" : "0",
@@ -54,16 +54,17 @@
       "bugtracker" : {
          "web" : "https://github.com/iamalnewkirk/test-db/issues"
       },
-      "homepage" : "http://metacpan.org/release/Test-DB/",
+      "homepage" : "https://metacpan.org/release/AWNCORP/Test-DB-0.03",
       "repository" : {
          "type" : "git",
          "url" : "git://github.com/iamalnewkirk/test-db.git",
          "web" : "https://github.com/iamalnewkirk/test-db"
       }
    },
-   "version" : "0.03",
+   "version" : "0.04",
    "x_authority" : "cpan:AWNCORP",
-   "x_generated_by_perl" : "v5.30.1",
-   "x_serialization_backend" : "Cpanel::JSON::XS version 4.18"
+   "x_generated_by_perl" : "v5.32.0",
+   "x_serialization_backend" : "Cpanel::JSON::XS version 4.19",
+   "x_spdx_expression" : "Artistic-1.0-Perl OR GPL-1.0-or-later"
 }
 

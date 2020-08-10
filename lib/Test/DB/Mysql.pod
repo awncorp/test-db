@@ -19,7 +19,9 @@ Temporary Mysql Database for Testing
 
   use Test::DB::Mysql;
 
-  my $tdbi = Test::DB::Mysql->new;
+  my $tdbo = Test::DB::Mysql->new;
+
+  # my $dbh = $tdbo->dbh;
 
 =cut
 
@@ -140,7 +142,7 @@ The create method creates a temporary database and returns the invocant.
 
   # given: synopsis
 
-  $tdbi->create;
+  $tdbo->create;
 
   # <Test::DB::Mysql>
 
@@ -160,8 +162,8 @@ The destroy method destroys (drops) the database and returns the invocant.
 
   # given: synopsis
 
-  $tdbi->create;
-  $tdbi->destroy;
+  $tdbo->create;
+  $tdbo->destroy;
 
   # <Test::DB::Mysql>
 
