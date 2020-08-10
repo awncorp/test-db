@@ -13,6 +13,12 @@ Test::DB
 
 =cut
 
+=tagline
+
+Temporary Testing Databases
+
+=cut
+
 =abstract
 
 Temporary Databases for Testing
@@ -27,11 +33,13 @@ method: create
 
 =synopsis
 
-  package main;
-
   use Test::DB;
 
   my $tdb = Test::DB->new;
+
+  # my $tdbo = $tdb->create(database => 'sqlite');
+
+  # my $dbh = $tdbo->dbh;
 
 =cut
 
@@ -47,7 +55,7 @@ This package provides a framework for setting up and tearing down temporary
 databases for testing purposes. This framework requires a user (optionally with
 password) which has the ability to create new databases and works by creating
 test-specific databases owned by the user specified using the naming
-convention: C<test_db_{time}_{proc}_{rand}>.
+convention: C<(testing_db_{time}_{proc}_{rand})>.
 
 =cut
 
@@ -69,9 +77,21 @@ create(Str :$database, Str %options) : Maybe[InstanceOf["Test::DB::Object"]]
 
   # given: synopsis
 
-  $tdb->create; # or $tdb->create(%options)
+  $tdb->create;
 
-  # <Test::DB::Object>
+=example-2 create
+
+  # given: synopsis
+
+  $ENV{TESTDB_DATABASE} = 'sqlite';
+
+  $tdb->create;
+
+=example-3 create
+
+  # given: synopsis
+
+  $tdb->create(database => 'sqlite');
 
 =cut
 
@@ -107,6 +127,28 @@ SKIP: {
 
     $result
   });
+
+  if (do { local $@; eval { require DBD::SQLite }; !$@ }) {
+    $subs->example(-2, 'create', 'method', fun($tryable) {
+      ok my $result = $tryable->result;
+      ok $result->isa('Test::DB::Object');
+      ok $result->isa('Test::DB::Sqlite');
+
+      ok $result->destroy;
+
+      $result
+    });
+
+    $subs->example(-3, 'create', 'method', fun($tryable) {
+      ok my $result = $tryable->result;
+      ok $result->isa('Test::DB::Object');
+      ok $result->isa('Test::DB::Sqlite');
+
+      ok $result->destroy;
+
+      $result
+    });
+  }
 }
 
 ok 1 and done_testing;

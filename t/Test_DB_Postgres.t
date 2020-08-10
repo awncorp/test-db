@@ -33,7 +33,9 @@ method: destroy
 
   use Test::DB::Postgres;
 
-  my $tdbi = Test::DB::Postgres->new;
+  my $tdbo = Test::DB::Postgres->new;
+
+  # my $dbh = $tdbo->dbh;
 
 =cut
 
@@ -90,7 +92,7 @@ clone(Str $source) : Object
 
   # given: synopsis
 
-  $tdbi->clone('template0');
+  $tdbo->clone('template0');
 
   # <Test::DB::Postgres>
 
@@ -108,7 +110,7 @@ create() : Object
 
   # given: synopsis
 
-  $tdbi->create;
+  $tdbo->create;
 
   # <Test::DB::Postgres>
 
@@ -126,8 +128,8 @@ destroy() : Object
 
   # given: synopsis
 
-  $tdbi->create;
-  $tdbi->destroy;
+  $tdbo->create;
+  $tdbo->destroy;
 
   # <Test::DB::Postgres>
 
@@ -154,7 +156,7 @@ SKIP: {
     ok my $result = $tryable->result;
     ok $result->isa('Test::DB::Postgres');
     ok $result->dbh;
-    like $result->dsn, qr/dbi:Pg:dbname=test_db_\d+_\d+_\d+/;
+    like $result->dsn, qr/dbi:Pg:dbname=testing_db_\d+_\d+_\d+/;
 
     $result->destroy;
     $result
@@ -164,7 +166,7 @@ SKIP: {
     ok my $result = $tryable->result;
     ok $result->isa('Test::DB::Postgres');
     ok $result->dbh;
-    like $result->dsn, qr/dbi:Pg:dbname=test_db_\d+_\d+_\d+/;
+    like $result->dsn, qr/dbi:Pg:dbname=testing_db_\d+_\d+_\d+/;
 
     $result->destroy;
     $result

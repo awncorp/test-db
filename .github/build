@@ -10,5 +10,5 @@ DZIL_RELEASE=0 dzil build
 
 # Push generated POD changes
 if ! git diff-index --quiet HEAD --; then
-  git checkout CHANGES && git add . && git commit -m 'Updated documentation'
+  git checkout CHANGES && git add . && git commit -m 'Update documentation'
 fi

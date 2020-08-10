@@ -32,7 +32,9 @@ method: destroy
 
   use Test::DB::Mysql;
 
-  my $tdbi = Test::DB::Mysql->new;
+  my $tdbo = Test::DB::Mysql->new;
+
+  # my $dbh = $tdbo->dbh;
 
 =cut
 
@@ -89,7 +91,7 @@ create() : Object
 
   # given: synopsis
 
-  $tdbi->create;
+  $tdbo->create;
 
   # <Test::DB::Mysql>
 
@@ -107,8 +109,8 @@ destroy() : Object
 
   # given: synopsis
 
-  $tdbi->create;
-  $tdbi->destroy;
+  $tdbo->create;
+  $tdbo->destroy;
 
   # <Test::DB::Mysql>
 
@@ -135,7 +137,7 @@ SKIP: {
     ok my $result = $tryable->result;
     ok $result->isa('Test::DB::Mysql');
     ok $result->dbh;
-    like $result->dsn, qr/dbi:mysql:database=test_db_\d+_\d+_\d+/;
+    like $result->dsn, qr/dbi:mysql:database=testing_db_\d+_\d+_\d+/;
 
     $result->destroy;
     $result

@@ -33,7 +33,9 @@ method: destroy
 
   use Test::DB::Sqlite;
 
-  my $tdbi = Test::DB::Sqlite->new;
+  my $tdbo = Test::DB::Sqlite->new;
+
+  # my $dbh = $tdbo->dbh;
 
 =cut
 
@@ -85,7 +87,7 @@ clone(Str $source) : Object
 
   # given: synopsis
 
-  $tdbi->clone('source.db');
+  $tdbo->clone('source.db');
 
   # <Test::DB::Sqlite>
 
@@ -103,7 +105,7 @@ create() : Object
 
   # given: synopsis
 
-  $tdbi->create;
+  $tdbo->create;
 
   # <Test::DB::Sqlite>
 
@@ -121,8 +123,8 @@ destroy() : Object
 
   # given: synopsis
 
-  $tdbi->create;
-  $tdbi->destroy;
+  $tdbo->create;
+  $tdbo->destroy;
 
   # <Test::DB::Sqlite>
 
@@ -149,7 +151,7 @@ SKIP: {
     ok my $result = $tryable->result;
     ok $result->isa('Test::DB::Sqlite');
     ok $result->dbh;
-    like $result->dsn, qr/dbi:SQLite:dbname=.*test_db_\d+_\d+_\d+/;
+    like $result->dsn, qr/dbi:SQLite:dbname=.*testing_db_\d+_\d+_\d+/;
 
     $result->destroy;
     $result
@@ -159,7 +161,7 @@ SKIP: {
     ok my $result = $tryable->result;
     ok $result->isa('Test::DB::Sqlite');
     ok $result->dbh;
-    like $result->dsn, qr/dbi:SQLite:dbname=.*test_db_\d+_\d+_\d+/;
+    like $result->dsn, qr/dbi:SQLite:dbname=.*testing_db_\d+_\d+_\d+/;
 
     $result->destroy;
     $result

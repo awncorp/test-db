@@ -22,7 +22,7 @@ has 'database' => (
 );
 
 fun new_database($self) {
-  join '_', 'test_db', time, $$, sprintf "%04d", rand 999
+  join '_', 'testing_db', time, $$, sprintf "%04d", rand 999
 }
 
 # METHODS
