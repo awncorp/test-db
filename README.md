@@ -1,6 +1,6 @@
 # NAME
 
-Test::DB
+Test::DB - Temporary Testing Databases
 
 # ABSTRACT
 
@@ -8,11 +8,13 @@ Temporary Databases for Testing
 
 # SYNOPSIS
 
-    package main;
-
     use Test::DB;
 
     my $tdb = Test::DB->new;
+
+    # my $tdbo = $tdb->create(database => 'sqlite');
+
+    # my $dbh = $tdbo->dbh;
 
 # DESCRIPTION
 
@@ -20,7 +22,7 @@ This package provides a framework for setting up and tearing down temporary
 databases for testing purposes. This framework requires a user (optionally with
 password) which has the ability to create new databases and works by creating
 test-specific databases owned by the user specified using the naming
-convention: `test_db_{time}_{proc}_{rand}`.
+convention: `(testing_db_{time}_{proc}_{rand})`.
 
 # LIBRARIES
 
@@ -48,9 +50,21 @@ passed along to the test database object class constructor.
 
         # given: synopsis
 
-        $tdb->create; # or $tdb->create(%options)
+        $tdb->create;
 
-        # <Test::DB::Object>
+- create example #2
+
+        # given: synopsis
+
+        $ENV{TESTDB_DATABASE} = 'sqlite';
+
+        $tdb->create;
+
+- create example #3
+
+        # given: synopsis
+
+        $tdb->create(database => 'sqlite');
 
 # AUTHOR
 
