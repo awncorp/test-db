@@ -36,7 +36,7 @@ testauto -o lib -t TEMPLATE
 
 # Push generated POD changes
 if ! git diff-index --quiet HEAD --; then
-  git add . && git commit -m 'Added release updates'
+  git add . && git commit -m 'Add release updates'
 fi
 
 # Build, Tag, and Push Package Release

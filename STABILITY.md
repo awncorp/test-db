@@ -10,7 +10,6 @@ notice period, with the following exceptions:
 
 * Changes necessary to maintain compatibility with:
 
-  - [Do](https://metacpan.org/pod/Do)
   - Other major dependencies
   - Perl +5.14
 
