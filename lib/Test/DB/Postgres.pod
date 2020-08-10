@@ -19,7 +19,9 @@ Temporary Postgres Database for Testing
 
   use Test::DB::Postgres;
 
-  my $tdbi = Test::DB::Postgres->new;
+  my $tdbo = Test::DB::Postgres->new;
+
+  # my $dbh = $tdbo->dbh;
 
 =cut
 
@@ -140,7 +142,7 @@ The clone method creates a temporary database from a database template.
 
   # given: synopsis
 
-  $tdbi->clone('template0');
+  $tdbo->clone('template0');
 
   # <Test::DB::Postgres>
 
@@ -160,7 +162,7 @@ The create method creates a temporary database and returns the invocant.
 
   # given: synopsis
 
-  $tdbi->create;
+  $tdbo->create;
 
   # <Test::DB::Postgres>
 
@@ -180,8 +182,8 @@ The destroy method destroys (drops) the database and returns the invocant.
 
   # given: synopsis
 
-  $tdbi->create;
-  $tdbi->destroy;
+  $tdbo->create;
+  $tdbo->destroy;
 
   # <Test::DB::Postgres>
 

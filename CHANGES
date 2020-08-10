@@ -1,6 +1,11 @@
 Changelog for Test-DB
 
-0.03 2020-04-09T20:02:30
+0.04 2020-08-10T03:49:15
+ - Add release updates
+ - Cleanup and re-launch
+
+0.03 2020-04-09T20:02:31
+ - Built release version 0.03
  - Added release updates
  - Fix META data
  - Allow clone for SQLite and Postgres

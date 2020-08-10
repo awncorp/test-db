@@ -19,7 +19,9 @@ Temporary Sqlite Database for Testing
 
   use Test::DB::Sqlite;
 
-  my $tdbi = Test::DB::Sqlite->new;
+  my $tdbo = Test::DB::Sqlite->new;
+
+  # my $dbh = $tdbo->dbh;
 
 =cut
 
@@ -114,7 +116,7 @@ The clone method creates a temporary database from a database template.
 
   # given: synopsis
 
-  $tdbi->clone('source.db');
+  $tdbo->clone('source.db');
 
   # <Test::DB::Sqlite>
 
@@ -134,7 +136,7 @@ The create method creates a temporary database and returns the invocant.
 
   # given: synopsis
 
-  $tdbi->create;
+  $tdbo->create;
 
   # <Test::DB::Sqlite>
 
@@ -154,8 +156,8 @@ The destroy method destroys (drops) the database and returns the invocant.
 
   # given: synopsis
 
-  $tdbi->create;
-  $tdbi->destroy;
+  $tdbo->create;
+  $tdbo->destroy;
 
   # <Test::DB::Sqlite>
 
