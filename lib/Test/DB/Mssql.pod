@@ -3,13 +3,13 @@
 
 =head1 NAME
 
-Test::DB::Mysql
+Test::DB::Mssql
 
 =cut
 
 =head1 ABSTRACT
 
-Temporary Mysql Database for Testing
+Temporary Mssql Database for Testing
 
 =cut
 
@@ -17,9 +17,9 @@ Temporary Mysql Database for Testing
 
   package main;
 
-  use Test::DB::Mysql;
+  use Test::DB::Mssql;
 
-  my $tdbo = Test::DB::Mysql->new;
+  my $tdbo = Test::DB::Mssql->new;
 
   # my $dbh = $tdbo->create->dbh;
 
@@ -27,10 +27,10 @@ Temporary Mysql Database for Testing
 
 =head1 DESCRIPTION
 
-This package provides methods for generating and destroying Mysql databases for
-testing purposes. The attributes can be set using their respective environment
-variables: C<TESTDB_DATABASE>, C<TESTDB_USERNAME>, C<TESTDB_PASSWORD>,
-C<TESTDB_HOSTNAME>, and C<TESTDB_HOSTPORT>.
+This package provides methods for generating and destroying Mssql databases
+for testing purposes. The attributes can be set using their respective
+environment variables: C<TESTDB_DATABASE>, C<TESTDB_USERNAME>,
+C<TESTDB_PASSWORD>, C<TESTDB_HOSTNAME>, and C<TESTDB_HOSTPORT>.
 
 =cut
 
@@ -130,6 +130,26 @@ This package implements the following methods:
 
 =cut
 
+=head2 clone
+
+  clone(Str $source) : Object
+
+The clone method creates a temporary database from a database template.
+
+=over 4
+
+=item clone example #1
+
+  # given: synopsis
+
+  $tdbo->clone('template0');
+
+  # <Test::DB::Mssql>
+
+=back
+
+=cut
+
 =head2 create
 
   create() : Object
@@ -144,7 +164,7 @@ The create method creates a temporary database and returns the invocant.
 
   $tdbo->create;
 
-  # <Test::DB::Mysql>
+  # <Test::DB::Mssql>
 
 =back
 
@@ -165,7 +185,7 @@ The destroy method destroys (drops) the database and returns the invocant.
   $tdbo->create;
   $tdbo->destroy;
 
-  # <Test::DB::Mysql>
+  # <Test::DB::Mssql>
 
 =back
 

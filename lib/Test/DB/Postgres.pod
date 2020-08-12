@@ -21,7 +21,7 @@ Temporary Postgres Database for Testing
 
   my $tdbo = Test::DB::Postgres->new;
 
-  # my $dbh = $tdbo->dbh;
+  # my $dbh = $tdbo->create->dbh;
 
 =cut
 

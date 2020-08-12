@@ -30,8 +30,7 @@ Temporary Databases for Testing
 This package provides a framework for setting up and tearing down temporary
 databases for testing purposes. This framework requires a user (optionally with
 password) which has the ability to create new databases and works by creating
-test-specific databases owned by the user specified using the naming
-convention: C<(testing_db_{time}_{proc}_{rand})>.
+test-specific databases owned by the user specified.
 
 =cut
 
@@ -49,6 +48,58 @@ This package implements the following methods:
 
 =cut
 
+=head2 clone
+
+  clone(Str :$database, Str %options) : Maybe[InstanceOf["Test::DB::Object"]]
+
+The clone method generates a database based on the type and database template
+specified and returns a C<Test::DB::Object> with an active connection, C<dbh>
+and C<dsn>. If the database specified doesn't have a corresponding database
+drive this method will returned the undefined value. The type of database can
+be omitted if the C<TESTDB_DATABASE> environment variable is set, if not the
+type of database must be either C<sqlite>, C<mysql>, C<mssql> or C<postgres>.
+Any options provided are passed along to the test database object class
+constructor.
+
+=over 4
+
+=item clone example #1
+
+  # given: synopsis
+
+  $ENV{TESTDB_DATABASE} = 'postgres';
+
+  $tdb->clone(template => 'template0');
+
+=back
+
+=over 4
+
+=item clone example #2
+
+  # given: synopsis
+
+  $ENV{TESTDB_DATABASE} = 'postgres';
+  $ENV{TESTDB_TEMPLATE} = 'template0';
+
+  $tdb->clone;
+
+=back
+
+=over 4
+
+=item clone example #3
+
+  # given: synopsis
+
+  $ENV{TESTDB_TEMPLATE} = 'template0';
+
+  $tdb->clone(database => 'postgres');
+
+=back
+
+=cut
+
 =head2 create
 
   create(Str :$database, Str %options) : Maybe[InstanceOf["Test::DB::Object"]]
@@ -58,8 +109,8 @@ a C<Test::DB::Object> with an active connection, C<dbh> and C<dsn>. If the
 database specified doesn't have a corresponding database drive this method will
 returned the undefined value. The type of database can be omitted if the
 C<TESTDB_DATABASE> environment variable is set, if not the type of database
-must be either C<sqlite>, C<mysql>, or C<postgres>. Any options provided are
-passed along to the test database object class constructor.
+must be either C<sqlite>, C<mysql>, C<mssql> or C<postgres>. Any options
+provided are passed along to the test database object class constructor.
 
 =over 4
 
