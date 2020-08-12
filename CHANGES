@@ -1,6 +1,12 @@
 Changelog for Test-DB
 
-0.04 2020-08-10T03:49:15
+0.05 2020-08-12T21:54:20
+ - Add release updates
+ - Implement support for MSSQL (#16)
+ - Update .gitattributes
+
+0.04 2020-08-10T03:49:17
+ - Built release version 0.04
  - Add release updates
  - Cleanup and re-launch
 
