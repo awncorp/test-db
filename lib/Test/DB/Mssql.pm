@@ -1,4 +1,4 @@
-package Test::DB::Mysql;
+package Test::DB::Mssql;
 
 use 5.014;
 
@@ -73,7 +73,17 @@ has 'initial' => (
 );
 
 fun new_initial($self) {
-  $ENV{TESTDB_INITIAL} || 'mysql'
+  $ENV{TESTDB_INITIAL} || 'master'
+}
+
+has 'odbcdsn' => (
+  is => 'ro',
+  isa => 'Str',
+  new => 1,
+);
+
+fun new_odbcdsn($self) {
+  $ENV{TESTDB_ODBCDSN}
 }
 
 has 'username' => (
@@ -83,7 +93,7 @@ has 'username' => (
 );
 
 fun new_username($self) {
-  $ENV{TESTDB_USERNAME} || 'root'
+  $ENV{TESTDB_USERNAME} || 'sa'
 }
 
 has 'password' => (
@@ -98,6 +108,29 @@ fun new_password($self) {
 
 # METHODS
 
+method clone(Str $source = $self->template) {
+  my $initial = $self->initial;
+
+  my $dbh = DBI->connect($self->dsngen($initial),
+    $self->username,
+    $self->password,
+    {
+      RaiseError => 1,
+      AutoCommit => 1
+    }
+  );
+
+  my $sth = $dbh->prepare(qq(DBCC CLONEDATABASE([$source], [@{[$self->database]}])));
+
+  $sth->execute;
+  $dbh->disconnect;
+
+  $self->dbh;
+  $self->immutable;
+
+  return $self;
+}
+
 method create() {
   my $initial = $self->initial;
 
@@ -110,7 +143,7 @@ method create() {
     }
   );
 
-  my $sth = $dbh->prepare(qq(CREATE DATABASE `@{[$self->database]}`));
+  my $sth = $dbh->prepare(qq(CREATE DATABASE [@{[$self->database]}]));
 
   $sth->execute;
   $dbh->disconnect;
@@ -135,7 +168,7 @@ method destroy() {
     }
   );
 
-  my $sth = $dbh->prepare(qq(DROP DATABASE `@{[$self->database]}`));
+  my $sth = $dbh->prepare(qq(DROP DATABASE [@{[$self->database]}]));
 
   $sth->execute;
   $dbh->disconnect;
@@ -144,7 +177,7 @@ method destroy() {
 }
 
 method dsngen(Str $name) {
-  join ';', "dbi:mysql:database=$name", join ';',
+  join ';', "dbi:ODBC:DSN=@{[$self->odbcdsn]};database=$name", join ';',
     ($self->hostname ? ("host=@{[$self->hostname]}") : ()),
     ($self->hostport ? ("port=@{[$self->hostport]}") : ())
 }

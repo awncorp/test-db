@@ -35,7 +35,7 @@ method: destroy
 
   my $tdbo = Test::DB::Sqlite->new;
 
-  # my $dbh = $tdbo->dbh;
+  # my $dbh = $tdbo->create->dbh;
 
 =cut
 
