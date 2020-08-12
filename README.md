@@ -21,8 +21,7 @@ Temporary Databases for Testing
 This package provides a framework for setting up and tearing down temporary
 databases for testing purposes. This framework requires a user (optionally with
 password) which has the ability to create new databases and works by creating
-test-specific databases owned by the user specified using the naming
-convention: `(testing_db_{time}_{proc}_{rand})`.
+test-specific databases owned by the user specified.
 
 # LIBRARIES
 
@@ -34,6 +33,44 @@ This package uses type constraints from:
 
 This package implements the following methods:
 
+## clone
+
+    clone(Str :$database, Str %options) : Maybe[InstanceOf["Test::DB::Object"]]
+
+The clone method generates a database based on the type and database template
+specified and returns a `Test::DB::Object` with an active connection, `dbh`
+and `dsn`. If the database specified doesn't have a corresponding database
+drive this method will returned the undefined value. The type of database can
+be omitted if the `TESTDB_DATABASE` environment variable is set, if not the
+type of database must be either `sqlite`, `mysql`, `mssql` or `postgres`.
+Any options provided are passed along to the test database object class
+constructor.
+
+- clone example #1
+
+        # given: synopsis
+
+        $ENV{TESTDB_DATABASE} = 'postgres';
+
+        $tdb->clone(template => 'template0');
+
+- clone example #2
+
+        # given: synopsis
+
+        $ENV{TESTDB_DATABASE} = 'postgres';
+        $ENV{TESTDB_TEMPLATE} = 'template0';
+
+        $tdb->clone;
+
+- clone example #3
+
+        # given: synopsis
+
+        $ENV{TESTDB_TEMPLATE} = 'template0';
+
+        $tdb->clone(database => 'postgres');
+
 ## create
 
     create(Str :$database, Str %options) : Maybe[InstanceOf["Test::DB::Object"]]
@@ -43,8 +80,8 @@ a `Test::DB::Object` with an active connection, `dbh` and `dsn`. If the
 database specified doesn't have a corresponding database drive this method will
 returned the undefined value. The type of database can be omitted if the
 `TESTDB_DATABASE` environment variable is set, if not the type of database
-must be either `sqlite`, `mysql`, or `postgres`. Any options provided are
-passed along to the test database object class constructor.
+must be either `sqlite`, `mysql`, `mssql` or `postgres`. Any options
+provided are passed along to the test database object class constructor.
 
 - create example #1
 
