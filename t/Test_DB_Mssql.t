@@ -9,13 +9,13 @@ use Test::More;
 
 =name
 
-Test::DB::Postgres
+Test::DB::Mssql
 
 =cut
 
 =abstract
 
-Temporary Postgres Database for Testing
+Temporary Mssql Database for Testing
 
 =cut
 
@@ -31,9 +31,9 @@ method: destroy
 
   package main;
 
-  use Test::DB::Postgres;
+  use Test::DB::Mssql;
 
-  my $tdbo = Test::DB::Postgres->new;
+  my $tdbo = Test::DB::Mssql->new;
 
   # my $dbh = $tdbo->create->dbh;
 
@@ -73,7 +73,7 @@ password: ro, opt, Str
 
 =description
 
-This package provides methods for generating and destroying Postgres databases
+This package provides methods for generating and destroying Mssql databases
 for testing purposes. The attributes can be set using their respective
 environment variables: C<TESTDB_DATABASE>, C<TESTDB_USERNAME>,
 C<TESTDB_PASSWORD>, C<TESTDB_HOSTNAME>, and C<TESTDB_HOSTPORT>.
@@ -94,7 +94,7 @@ clone(Str $source) : Object
 
   $tdbo->clone('template0');
 
-  # <Test::DB::Postgres>
+  # <Test::DB::Mssql>
 
 =cut
 
@@ -112,7 +112,7 @@ create() : Object
 
   $tdbo->create;
 
-  # <Test::DB::Postgres>
+  # <Test::DB::Mssql>
 
 =cut
 
@@ -131,15 +131,15 @@ destroy() : Object
   $tdbo->create;
   $tdbo->destroy;
 
-  # <Test::DB::Postgres>
+  # <Test::DB::Mssql>
 
 =cut
 
 package main;
 
 SKIP: {
-  if (!$ENV{TESTDB_DATABASE} || lc($ENV{TESTDB_DATABASE}) ne 'postgres') {
-    skip 'Environment not configured for Postgres testing';
+  if (!$ENV{TESTDB_DATABASE} || lc($ENV{TESTDB_DATABASE}) ne 'mssql') {
+    skip 'Environment not configured for Mssql testing';
   }
 
   my $test = testauto(__FILE__);
@@ -149,24 +149,31 @@ SKIP: {
   $subs->synopsis(fun($tryable) {
     ok my $result = $tryable->result;
 
+    # create template0 for clone testing
+    $result->create->dbh->do('CREATE DATABASE template0');
+
     $result
   });
 
   $subs->example(-1, 'clone', 'method', fun($tryable) {
     ok my $result = $tryable->result;
-    ok $result->isa('Test::DB::Postgres');
+    ok $result->isa('Test::DB::Mssql');
     ok $result->dbh;
-    like $result->dsn, qr/dbi:Pg:dbname=testing_db_\d+_\d+_\d+/;
+    like $result->dsn, qr/dbi:ODBC:DSN=[^;]+;database=testing_db_\d+_\d+_\d+/;
+
+    # destroy template0 after clone testing
+    $result->dbh->do('DROP DATABASE template0');
 
     $result->destroy;
+
     $result
   });
 
   $subs->example(-1, 'create', 'method', fun($tryable) {
     ok my $result = $tryable->result;
-    ok $result->isa('Test::DB::Postgres');
+    ok $result->isa('Test::DB::Mssql');
     ok $result->dbh;
-    like $result->dsn, qr/dbi:Pg:dbname=testing_db_\d+_\d+_\d+/;
+    like $result->dsn, qr/dbi:ODBC:DSN=[^;]+;database=testing_db_\d+_\d+_\d+/;
 
     $result->destroy;
     $result
@@ -174,7 +181,7 @@ SKIP: {
 
   $subs->example(-1, 'destroy', 'method', fun($tryable) {
     ok my $result = $tryable->result;
-    ok $result->isa('Test::DB::Postgres');
+    ok $result->isa('Test::DB::Mssql');
 
     $result
   });

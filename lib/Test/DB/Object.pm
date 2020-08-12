@@ -25,6 +25,16 @@ fun new_database($self) {
   join '_', 'testing_db', time, $$, sprintf "%04d", rand 999
 }
 
+has 'template' => (
+  is => 'ro',
+  isa => 'Maybe[Str]',
+  new => 1,
+);
+
+fun new_template($self) {
+  $ENV{TESTDB_TEMPLATE}
+}
+
 # METHODS
 
 method create() {

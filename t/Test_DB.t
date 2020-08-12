@@ -27,6 +27,7 @@ Temporary Databases for Testing
 
 =includes
 
+method: clone
 method: create
 
 =cut
@@ -54,8 +55,49 @@ Types::Standard
 This package provides a framework for setting up and tearing down temporary
 databases for testing purposes. This framework requires a user (optionally with
 password) which has the ability to create new databases and works by creating
-test-specific databases owned by the user specified using the naming
-convention: C<(testing_db_{time}_{proc}_{rand})>.
+test-specific databases owned by the user specified.
+
+=cut
+
+=method clone
+
+The clone method generates a database based on the type and database template
+specified and returns a C<Test::DB::Object> with an active connection, C<dbh>
+and C<dsn>. If the database specified doesn't have a corresponding database
+drive this method will returned the undefined value. The type of database can
+be omitted if the C<TESTDB_DATABASE> environment variable is set, if not the
+type of database must be either C<sqlite>, C<mysql>, C<mssql> or C<postgres>.
+Any options provided are passed along to the test database object class
+constructor.
+
+=signature clone
+
+clone(Str :$database, Str %options) : Maybe[InstanceOf["Test::DB::Object"]]
+
+=example-1 clone
+
+  # given: synopsis
+
+  $ENV{TESTDB_DATABASE} = 'postgres';
+
+  $tdb->clone(template => 'template0');
+
+=example-2 clone
+
+  # given: synopsis
+
+  $ENV{TESTDB_DATABASE} = 'postgres';
+  $ENV{TESTDB_TEMPLATE} = 'template0';
+
+  $tdb->clone;
+
+=example-3 clone
+
+  # given: synopsis
+
+  $ENV{TESTDB_TEMPLATE} = 'template0';
+
+  $tdb->clone(database => 'postgres');
 
 =cut
 
@@ -66,8 +108,8 @@ a C<Test::DB::Object> with an active connection, C<dbh> and C<dsn>. If the
 database specified doesn't have a corresponding database drive this method will
 returned the undefined value. The type of database can be omitted if the
 C<TESTDB_DATABASE> environment variable is set, if not the type of database
-must be either C<sqlite>, C<mysql>, or C<postgres>. Any options provided are
-passed along to the test database object class constructor.
+must be either C<sqlite>, C<mysql>, C<mssql> or C<postgres>. Any options
+provided are passed along to the test database object class constructor.
 
 =signature create
 
@@ -111,6 +153,38 @@ SKIP: {
 
     $result
   });
+
+  if (do { local $@; eval { require DBD::Pg }; !$@ }) {
+    $subs->example(-1, 'clone', 'method', fun($tryable) {
+      ok my $result = $tryable->result;
+      ok $result->isa('Test::DB::Object');
+      ok $result->isa('Test::DB::Postgres');
+
+      ok $result->destroy;
+
+      $result
+    });
+
+    $subs->example(-2, 'clone', 'method', fun($tryable) {
+      ok my $result = $tryable->result;
+      ok $result->isa('Test::DB::Object');
+      ok $result->isa('Test::DB::Postgres');
+
+      ok $result->destroy;
+
+      $result
+    });
+
+    $subs->example(-3, 'clone', 'method', fun($tryable) {
+      ok my $result = $tryable->result;
+      ok $result->isa('Test::DB::Object');
+      ok $result->isa('Test::DB::Postgres');
+
+      ok $result->destroy;
+
+      $result
+    });
+  }
 
   $subs->example(-1, 'create', 'method', fun($tryable) {
     ok my $result = $tryable->result;

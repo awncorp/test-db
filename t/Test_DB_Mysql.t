@@ -34,7 +34,7 @@ method: destroy
 
   my $tdbo = Test::DB::Mysql->new;
 
-  # my $dbh = $tdbo->dbh;
+  # my $dbh = $tdbo->create->dbh;
 
 =cut
 

@@ -48,37 +48,57 @@ fun new_dsn($self) {
 
 has 'hostname' => (
   is => 'ro',
-  isa => 'Str',
-  def => $ENV{TESTDB_HOSTNAME},
+  isa => 'Maybe[Str]',
+  new => 1,
 );
+
+fun new_hostname($self) {
+  $ENV{TESTDB_HOSTNAME}
+}
 
 has 'hostport' => (
   is => 'ro',
-  isa => 'Str',
-  def => $ENV{TESTDB_HOSTPORT},
+  isa => 'Maybe[Str]',
+  new => 1,
 );
+
+fun new_hostport($self) {
+  $ENV{TESTDB_HOSTPORT}
+}
 
 has 'initial' => (
   is => 'ro',
   isa => 'Str',
-  def => $ENV{TESTDB_INITIAL} || 'postgres',
+  new => 1,
 );
+
+fun new_initial($self) {
+  $ENV{TESTDB_INITIAL} || 'postgres'
+}
 
 has 'username' => (
   is => 'ro',
   isa => 'Str',
-  def => $ENV{TESTDB_USERNAME} || '',
+  new => 1,
 );
+
+fun new_username($self) {
+  $ENV{TESTDB_USERNAME} || ''
+}
 
 has 'password' => (
   is => 'ro',
   isa => 'Str',
-  def => $ENV{TESTDB_PASSWORD} || '',
+  new => 1,
 );
+
+fun new_password($self) {
+  $ENV{TESTDB_PASSWORD} || ''
+}
 
 # METHODS
 
-method clone(Str $source) {
+method clone(Str $source = $self->template) {
   my $initial = $self->initial;
 
   my $dbh = DBI->connect($self->dsngen($initial),
