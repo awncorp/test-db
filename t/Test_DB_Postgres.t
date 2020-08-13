@@ -13,6 +13,12 @@ Test::DB::Postgres
 
 =cut
 
+=tagline
+
+Temporary Testing Databases for Postgres
+
+=cut
+
 =abstract
 
 Temporary Postgres Database for Testing
