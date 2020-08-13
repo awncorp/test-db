@@ -64,7 +64,7 @@ test-specific databases owned by the user specified.
 The clone method generates a database based on the type and database template
 specified and returns a C<Test::DB::Object> with an active connection, C<dbh>
 and C<dsn>. If the database specified doesn't have a corresponding database
-drive this method will returned the undefined value. The type of database can
+driver this method will returned the undefined value. The type of database can
 be omitted if the C<TESTDB_DATABASE> environment variable is set, if not the
 type of database must be either C<sqlite>, C<mysql>, C<mssql> or C<postgres>.
 Any options provided are passed along to the test database object class
@@ -105,8 +105,8 @@ clone(Str :$database, Str %options) : Maybe[InstanceOf["Test::DB::Object"]]
 
 The create method generates a database based on the type specified and returns
 a C<Test::DB::Object> with an active connection, C<dbh> and C<dsn>. If the
-database specified doesn't have a corresponding database drive this method will
-returned the undefined value. The type of database can be omitted if the
+database specified doesn't have a corresponding database driver this method
+will returned the undefined value. The type of database can be omitted if the
 C<TESTDB_DATABASE> environment variable is set, if not the type of database
 must be either C<sqlite>, C<mysql>, C<mssql> or C<postgres>. Any options
 provided are passed along to the test database object class constructor.
