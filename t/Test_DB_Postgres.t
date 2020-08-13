@@ -81,8 +81,9 @@ password: ro, opt, Str
 
 This package provides methods for generating and destroying Postgres databases
 for testing purposes. The attributes can be set using their respective
-environment variables: C<TESTDB_DATABASE>, C<TESTDB_USERNAME>,
-C<TESTDB_PASSWORD>, C<TESTDB_HOSTNAME>, and C<TESTDB_HOSTPORT>.
+environment variables: C<TESTDB_TEMPLATE>, C<TESTDB_DATABASE>,
+C<TESTDB_USERNAME>, C<TESTDB_PASSWORD>, C<TESTDB_HOSTNAME>, and
+C<TESTDB_HOSTPORT>.
 
 =cut
 
