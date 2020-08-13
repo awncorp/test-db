@@ -13,6 +13,12 @@ Test::DB::Sqlite
 
 =cut
 
+=tagline
+
+Temporary Testing Databases for Sqlite
+
+=cut
+
 =abstract
 
 Temporary Sqlite Database for Testing
