@@ -40,7 +40,7 @@ This package implements the following methods:
 The clone method generates a database based on the type and database template
 specified and returns a `Test::DB::Object` with an active connection, `dbh`
 and `dsn`. If the database specified doesn't have a corresponding database
-drive this method will returned the undefined value. The type of database can
+driver this method will returned the undefined value. The type of database can
 be omitted if the `TESTDB_DATABASE` environment variable is set, if not the
 type of database must be either `sqlite`, `mysql`, `mssql` or `postgres`.
 Any options provided are passed along to the test database object class
@@ -77,8 +77,8 @@ constructor.
 
 The create method generates a database based on the type specified and returns
 a `Test::DB::Object` with an active connection, `dbh` and `dsn`. If the
-database specified doesn't have a corresponding database drive this method will
-returned the undefined value. The type of database can be omitted if the
+database specified doesn't have a corresponding database driver this method
+will returned the undefined value. The type of database can be omitted if the
 `TESTDB_DATABASE` environment variable is set, if not the type of database
 must be either `sqlite`, `mysql`, `mssql` or `postgres`. Any options
 provided are passed along to the test database object class constructor.

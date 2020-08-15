@@ -1,6 +1,12 @@
 Changelog for Test-DB
 
-0.05 2020-08-12T21:54:20
+0.06 2020-08-13T12:06:42
+ - Add release updates
+ - Include TESTDB_TEMPLATE in driver descriptions (#21)
+ - Include example for MSSQL, and POD taglines for all (#20)
+
+0.05 2020-08-12T21:54:22
+ - Built release version 0.05
  - Add release updates
  - Implement support for MSSQL (#16)
  - Update .gitattributes

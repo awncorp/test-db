@@ -3,7 +3,7 @@
 
 =head1 NAME
 
-Test::DB::Sqlite
+Test::DB::Sqlite - Temporary Testing Databases for Sqlite
 
 =cut
 

@@ -61,7 +61,7 @@
          "web" : "https://github.com/iamalnewkirk/test-db"
       }
    },
-   "version" : "0.05",
+   "version" : "0.06",
    "x_authority" : "cpan:AWNCORP",
    "x_generated_by_perl" : "v5.32.0",
    "x_serialization_backend" : "Cpanel::JSON::XS version 4.19",
