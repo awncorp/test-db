@@ -50,4 +50,20 @@ method clone(Str :$database = $ENV{TESTDB_DATABASE}, Str %options) {
   }
 }
 
+method mssql(Str %options) {
+  return $self->build(%options, database => 'mssql');
+}
+
+method mysql(Str %options) {
+  return $self->build(%options, database => 'mysql');
+}
+
+method postgres(Str %options) {
+  return $self->build(%options, database => 'postgres');
+}
+
+method sqlite(Str %options) {
+  return $self->build(%options, database => 'sqlite');
+}
+
 1;
