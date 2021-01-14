@@ -116,6 +116,14 @@ This attribute is read-only, accepts C<(Str)> values, and is optional.
 
 =cut
 
+=head2 uri
+
+  uri(Str)
+
+This attribute is read-only, accepts C<(Str)> values, and is optional.
+
+=cut
+
 =head2 username
 
   username(Str)
