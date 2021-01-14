@@ -56,6 +56,16 @@ fun new_file($self) {
   File::Spec->catfile(File::Temp::tempdir, "@{[$self->database]}.db")
 }
 
+has 'uri' => (
+  is => 'ro',
+  isa => 'Str',
+  new => 1,
+);
+
+fun new_uri($self) {
+  "sqlite:@{[$self->file]}"
+}
+
 # METHODS
 
 method clone(Str $source) {
@@ -67,6 +77,7 @@ method clone(Str $source) {
 method create() {
   my $dbh = $self->dbh;
 
+  $self->uri;
   $self->immutable;
 
   return $self;

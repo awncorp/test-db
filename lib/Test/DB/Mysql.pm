@@ -76,6 +76,16 @@ fun new_initial($self) {
   $ENV{TESTDB_INITIAL} || 'mysql'
 }
 
+has 'uri' => (
+  is => 'ro',
+  isa => 'Str',
+  new => 1,
+);
+
+fun new_uri($self) {
+  $self->urigen($self->database)
+}
+
 has 'username' => (
   is => 'ro',
   isa => 'Str',
@@ -116,6 +126,7 @@ method create() {
   $dbh->disconnect;
 
   $self->dbh;
+  $self->uri;
   $self->immutable;
 
   return $self;
@@ -147,6 +158,14 @@ method dsngen(Str $name) {
   join ';', "dbi:mysql:database=$name", join ';',
     ($self->hostname ? ("host=@{[$self->hostname]}") : ()),
     ($self->hostport ? ("port=@{[$self->hostport]}") : ())
+}
+
+method urigen(Str $name) {
+  join('/', 'mysql', ($self->username ? '' : ()), ($self->username ?
+    join('@', join(':', $self->username ? ($self->username, ($self->password ? $self->password : ())) : ()),
+    $self->hostname ? ($self->hostport ? (join(':', $self->hostname, $self->hostport)) : $self->hostname) : '') : ()),
+    $name
+  )
 }
 
 1;
